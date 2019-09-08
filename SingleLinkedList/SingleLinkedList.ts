@@ -28,6 +28,22 @@ export class SingleLinkedList
         return true;
     }
 
+    AddToFront(val:number):boolean
+    {
+        let newNode = new ListNode(val);
+
+        if (null == newNode)
+            return false;
+
+        if (null == this.tail)
+            this.tail = newNode;
+        
+        else
+            newNode.next = this.head;
+
+        this.head = newNode;
+
+    }
     PrintForward()
     {
         for (let current = this.head; current != null; current = current.next)
