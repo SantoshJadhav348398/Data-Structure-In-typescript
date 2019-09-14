@@ -33,7 +33,7 @@ export class SingleLinkedList
         let newNode = new ListNode(val);
 
         if (null == newNode)
-        return false;
+          return false;
 
         if(null == this.head && null == this.tail)
              this.tail = newNode;
@@ -43,7 +43,7 @@ export class SingleLinkedList
         this.head = newNode;
         return true;
     }
-        
+
     PrintForward()
     {
         for (let current = this.head; current != null; current = current.next)
