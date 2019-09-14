@@ -5,12 +5,12 @@ export class SingleLinkedList
     head : ListNode;
     tail : ListNode;
     
-    SingleLinkedList()
+    constructor()
     {
         this.head = this.tail = null;
     }
 
-     AddToBack(val):boolean
+     AddToBack(val:number):boolean
     {
         let newNode = new ListNode(val);
 
@@ -33,17 +33,17 @@ export class SingleLinkedList
         let newNode = new ListNode(val);
 
         if (null == newNode)
-            return false;
+          return false;
 
-        if (null == this.tail)
-            this.tail = newNode;
-        
+        if(null == this.head && null == this.tail)
+             this.tail = newNode;
         else
-            newNode.next = this.head;
+             newNode.next = this.head;
 
         this.head = newNode;
-
+        return true;
     }
+
     PrintForward()
     {
         for (let current = this.head; current != null; current = current.next)
