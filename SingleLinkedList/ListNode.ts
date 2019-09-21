@@ -2,6 +2,8 @@ export class ListNode
 {
     value : number;
     next : ListNode;
+    prev : ListNode;
+
 
     constructor(val : number)
     {

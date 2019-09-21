@@ -43,6 +43,36 @@ export class SingleLinkedList
         this.head = newNode;
         return true;
     }
+    
+   DeleteNode(val : number):boolean
+   {
+       let previous : ListNode = null;
+       
+       for (let current = this.head; current != null; previous = current, current = current.next)
+       {
+           if (current.value == val)
+            {    
+                previous.next = current.next;
+                return true;
+            }
+       }
+
+       return false;
+   }
+   
+   EditNode(valFrom : number, valTo : number):boolean
+   {
+       for (let current = this.head; null != current; current = current.next)
+       {
+           if (current.value == valFrom)
+            {    
+                current.value = valTo;
+                return true;
+            }
+       }
+
+       return false;
+   }
 
     PrintForward()
     {
