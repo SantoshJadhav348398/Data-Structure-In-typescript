@@ -20,3 +20,5 @@ console.log("print after delete");
 list.EditNode(1, 30);
 list.PrintForward();
 console.log("print after edit");
+
+console.log ("length of list is %d", list.getLength());

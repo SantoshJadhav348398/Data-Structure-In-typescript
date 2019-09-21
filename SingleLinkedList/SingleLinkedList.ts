@@ -4,10 +4,12 @@ export class SingleLinkedList
 {
     head : ListNode;
     tail : ListNode;
+    size : number;
     
     constructor()
     {
         this.head = this.tail = null;
+        this.size = 0;
     }
 
      AddToBack(val:number):boolean
@@ -25,6 +27,7 @@ export class SingleLinkedList
         
         this.tail = newNode;
 
+        this.size = this.size + 1;
         return true;
     }
 
@@ -41,6 +44,8 @@ export class SingleLinkedList
              newNode.next = this.head;
 
         this.head = newNode;
+
+        this.size = this.size + 1;
         return true;
     }
     
@@ -53,6 +58,7 @@ export class SingleLinkedList
            if (current.value == val)
             {    
                 previous.next = current.next;
+                this.size = this.size - 1;
                 return true;
             }
        }
@@ -73,6 +79,12 @@ export class SingleLinkedList
 
        return false;
    }
+
+   getLength():number
+   {
+        return this.size;
+   }
+
 
     PrintForward()
     {
