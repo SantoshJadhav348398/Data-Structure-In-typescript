@@ -21,4 +21,19 @@ list.EditNode(1, 30);
 list.PrintForward();
 console.log("print after edit");
 
-console.log ("length of list is %d", list.getLength());
+console.log ("length of list is %d", list.GetLength());
+
+let list2 : SingleLinkedList = new SingleLinkedList();
+
+list2.AddToBack(100);
+list2.AddToBack(101);
+list2.AddToBack(102);
+
+list2.PrintForward();
+
+list.Merge(list2);
+console.log("after merge");
+list.PrintForward();
+
+list.AddToFront(10);
+list.PrintForward();

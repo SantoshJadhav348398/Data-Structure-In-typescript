@@ -80,11 +80,20 @@ export class SingleLinkedList
        return false;
    }
 
-   getLength():number
+   GetLength():number
    {
         return this.size;
    }
 
+   Merge(list2:SingleLinkedList)
+   {
+        for (let current = list2.head; null != current; current = current.next)
+        {
+            let node : ListNode = new ListNode(current.value);
+            this.tail.next = node;
+            this.tail = node;
+        }
+   }
 
     PrintForward()
     {
