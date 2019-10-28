@@ -48,6 +48,40 @@ export class SentinelLinkedList {
     }
 
     /**
+     * DeleteNode */
+    public DeleteNode(val : number) : boolean {
+        
+        for (let current : ListNode = this.head.next; current != this.tail; current = current.next)
+        {
+            if (current.value == val)
+            {
+                current.prev.next = current.next;
+                current.next.prev = current.prev;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Update
+     */
+    public Update(searchValue : number, value : number) : boolean{
+        
+        for (let current : ListNode = this.head.next; current != this.tail; current = current.next)
+        {
+            if (current.value == searchValue)
+            {
+                current.value = value;
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
+    /**
      * printFoward
      */
     public printFoward() {
