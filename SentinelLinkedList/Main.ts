@@ -10,4 +10,12 @@ console.log("printing forward\n");
 list.printFoward();
 console.log("printing Backward\n");
 list.printBackward();
+list.DeleteNode(4);
+console.log("printing Forward\n");
+list.printFoward();
+console.log("updating Value\n");
+list.Update(6, 7);
+console.log("printing Forward\n");
+list.printFoward();
+
 
