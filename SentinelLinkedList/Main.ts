@@ -17,5 +17,6 @@ console.log("updating Value\n");
 list.Update(6, 7);
 console.log("printing Forward\n");
 list.printFoward();
+console.log(`the size of List is : ${list.getSize()}`);
 
 

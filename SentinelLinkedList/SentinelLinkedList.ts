@@ -61,6 +61,7 @@ export class SentinelLinkedList {
             {
                 current.prev.next = current.next;
                 current.next.prev = current.prev;
+                this.size -= 1;
                 return true;
             }
         }
