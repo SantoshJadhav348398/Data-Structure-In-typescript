@@ -4,6 +4,7 @@ export class SentinelLinkedList {
     //instance member
     private head : ListNode;
     private tail : ListNode;
+    private size : number;
 
     constructor() {
         // Initialising dummy node in List
@@ -11,6 +12,7 @@ export class SentinelLinkedList {
         this.tail = new ListNode(0);
         this.head.next = this.tail;
         this.tail.prev = this.head;
+        this.size = 0;
     }
 
     public AddToBack(value : number): boolean
@@ -27,6 +29,7 @@ export class SentinelLinkedList {
         newNode.prev = this.tail.prev;
         this.tail.prev.next = newNode;
         this.tail.prev = newNode;
+        this.size += 1;
         return true;
     }
 
@@ -44,6 +47,7 @@ export class SentinelLinkedList {
         newNode.next = this.head.next;
         this.head.next.prev = newNode;
         this.head.next = newNode;
+        this.size += 1;
         return true;
     }
 
@@ -93,7 +97,11 @@ export class SentinelLinkedList {
         console.log(List, "\n");
              
     }
-
+    
+    public getSize():number
+    {
+        return this.size;
+    }
     /**
      * printBackward  
      */
