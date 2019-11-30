@@ -18,13 +18,10 @@ export class HashTable {
        let offset : number = this.Hash(k);
        let nextEntry:Entry = new Entry(k, val);
        
-       if (this.table[offset] == null)
-           this.table[offset] = nextEntry;
-        else
-        {
-           nextEntry.next = this.table[offset];
-           this.table[offset] = nextEntry;
-        }
+       if (this.table[offset] != null)
+           nextEntry.next = this.table[offset]
+           
+        this.table[offset] = nextEntry;
     }
 
     /**

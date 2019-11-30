@@ -8,3 +8,5 @@ hashTable.put(10, 25);
 let data = hashTable.getEntry(10);
 
 console.log(data);
+console.log(hashTable.getEntry(11));
+console.log(hashTable.getEntry(20));
