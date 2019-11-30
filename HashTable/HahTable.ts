@@ -1,10 +1,10 @@
 import { Entry } from "./Entry";
 
-export class HashTable {
+export class HashTable<T> {
     private table;
     
     constructor(private size = 10) {
-        this.table = new Array<Entry>(size);
+        this.table = new Array<Entry<number, T>>(size);
     }
 
     private Hash (k : number){
@@ -14,9 +14,9 @@ export class HashTable {
     /**
      * Method put
      */
-    public put(k:number, val : number): void {
+    public put(k:number, val : T): void {
        let offset : number = this.Hash(k);
-       let nextEntry:Entry = new Entry(k, val);
+           let nextEntry:Entry<number, T> = new Entry<number, T>(k, val);
        
        if (this.table[offset] != null)
            nextEntry.next = this.table[offset]
@@ -27,17 +27,17 @@ export class HashTable {
     /**
      *    get method
      */
-    public getEntry(k : number) : number {
+    public getEntry(k : number) : T {
         let offset = this.Hash(k);
 
-        for (let current : Entry = this.table[offset]; current != null; current = current.next){
+        for (let current : Entry<number, T> = this.table[offset]; current != null; current = current.next){
             if (current.key == k){
                 return current.value;
             }
 
         }
 
-        return -1;
+        return null;
        }
 
     /**
@@ -45,8 +45,8 @@ export class HashTable {
      */
     public remove(k : number) : boolean{
         let offset = this.Hash(k);
-        let prev : Entry = null;
-        for (let current : Entry = this.table[offset]; current != null; prev = current, current = current.next)
+        let prev : Entry<number, number> = null;
+        for (let current : Entry<number, number> = this.table[offset]; current != null; prev = current, current = current.next)
         {
             if (current.key == k)
             {
