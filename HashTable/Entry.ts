@@ -1,9 +1,9 @@
-export class Entry{
-    value : number;
-    next : Entry;
-    key:number
+export class Entry<T1,T2>{
+    value : T2;
+    next : Entry<T1, T2>;
+    key:T1;
 
-    constructor(k:number, val : number){
+    constructor(k:T1, val : T2){
         this.value = val;
         this.next = null;
         this.key = k;
