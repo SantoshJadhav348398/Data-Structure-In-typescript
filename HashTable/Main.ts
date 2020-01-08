@@ -4,7 +4,7 @@ let referenceObject ={
     returnValue:null
 };
 
-let hashTable : HashTable<string> = new HashTable<string>(5);
+let hashTable : HashTable<number, string> = new HashTable<number, string>(5);
 
 hashTable.put(20, "Meghna1");
 hashTable.put(11, "Meghna2");
@@ -47,3 +47,12 @@ hashTable.remove(21);
 
 console.log("printing tree");
 hashTable.Print();
+
+console.log("printing the value for 100");
+hashTable.getEntry(100, referenceObject);
+console.log(referenceObject.returnValue);
+
+
+console.log("printing the value for 10");
+hashTable.getEntry(10, referenceObject);
+console.log(referenceObject.returnValue);

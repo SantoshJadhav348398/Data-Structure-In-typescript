@@ -1,14 +1,14 @@
-export class Entry<T1,T2>{
-    value : T2;
-    nextEntry : Entry<T1, T2>;
-    key:T1;
-    next : Entry<T1, T2>;
-    prev : Entry<T1, T2>;
-    left : Entry<T1, T2>;
-    right: Entry<T1, T2>;
+export class Entry<K, V>{
+    value : V;
+    nextEntry : Entry<K, V>;
+    key:K;
+    next : Entry<K, V>;
+    prev : Entry<K, V>;
+    left : Entry<K, V>;
+    right: Entry<K, V>;
      
 
-    constructor(k:T1, val : T2){
+    constructor(k:K, val : V){
         this.value = val;
         this.nextEntry = null;
         this.key  = k;
