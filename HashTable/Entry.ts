@@ -6,7 +6,7 @@ export class Entry<T1,T2>{
     prev : Entry<T1, T2>;
     left : Entry<T1, T2>;
     right: Entry<T1, T2>;
-    parent : Entry<T1, T2> 
+     
 
     constructor(k:T1, val : T2){
         this.value = val;
@@ -16,6 +16,5 @@ export class Entry<T1,T2>{
         this.prev = null;
         this.left = null;
         this.right= null;
-        this.parent = null; 
     }
 }

@@ -29,3 +29,21 @@ hashTable.DisplaySequence();
 
 console.log("printing tree");
 hashTable.Print();
+
+console.log("deleting tree node meghana 5");
+hashTable.remove(100);
+
+console.log("printing tree");
+hashTable.Print();
+
+console.log("deleting tree node meghana 1");
+hashTable.remove(20);
+
+console.log("printing tree4");
+hashTable.Print();
+
+console.log("deleting tree node meghana 4");
+hashTable.remove(21);
+
+console.log("printing tree");
+hashTable.Print();
