@@ -51,11 +51,11 @@ export class HashTable<V> {
 
         if (newEnt.key < TreeNode.key) { 
             TreeNode.left = this.AddNode(TreeNode.left, newEnt, TreeNode);
-            TreeNode.left.parent = TreeNode;
+            
         }
         else {
             TreeNode.right = this.AddNode(TreeNode.right, newEnt, TreeNode);
-            TreeNode.right.parent = TreeNode;
+            
         }
         return TreeNode;
     }
@@ -97,11 +97,55 @@ export class HashTable<V> {
                 // Removing Entry from list
                 current.prev.next = current.next;
                 current.next.prev = current.prev;
+
+                // Removing Entry from Tree
+                this.root = this.DeleteNode(this.root, k);
                 return true;
             }
         }
 
         return false;
+    }
+
+    private DeleteNode(current:Entry<number, V>, k:number) : Entry<number, V>
+    {
+        if (null == current)
+            return current;
+        if (current.key > k)
+            current.left = this.DeleteNode(current.left, k);
+        else if (current.key < k)
+            current.right = this.DeleteNode(current.right, k);
+        else
+        {
+            // current Entry contains no child
+            if (null == current.left && null == current.right)
+                return null;
+            
+            // current Entry contains right child
+            if (null == current.left && null != current.right)
+            {
+                let child = current.right;
+                return child;
+            }
+
+            // current Entry contains left child
+            if (null != current.left && null == current.right)
+            {
+                let child = current.left;
+                return child;
+            }
+
+            // Current Entry contains both child
+            current.right = this.AddNode(current.right, current.left);
+
+            /* Current Entry is root 
+            if (current == this.root) 
+                return null;   
+            */
+           return current.right;
+        }
+        return current;
+        
     }
 
     public DisplaySequence(): void
