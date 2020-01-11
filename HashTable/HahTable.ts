@@ -67,7 +67,7 @@ export class HashTable<K,V> {
     /**
      *    get method
      */
-    public getEntry(k : K, o: {returnValue}) : boolean {
+    public get(k : K, o: {returnValue}) : boolean {
         let offset = this.Hash(k);
 
         for (let current : Entry<K, V> = this.table[offset]; current != null; current = current.nextEntry){
@@ -172,7 +172,7 @@ export class HashTable<K,V> {
         this.PrintPed(this.root);
     }
 
-    public PrintPed(current : Entry<K, V>) 
+    private PrintPed(current : Entry<K, V>) 
     {
         if (current)
         {

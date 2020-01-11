@@ -14,12 +14,12 @@ hashTable.put(100, "Meghna5");
 hashTable.put(95, "Meghna6");
 hashTable.put(12, "Meghna7");
 
-hashTable.getEntry(10, referenceObject);
+hashTable.get(10, referenceObject);
 
 console.log(referenceObject.returnValue);
-hashTable.getEntry(11, referenceObject);
+hashTable.get(11, referenceObject);
 console.log(referenceObject.returnValue);
-hashTable.getEntry(20, referenceObject);
+hashTable.get(20, referenceObject);
 console.log(referenceObject.returnValue);
 console.log(" Displaying thje Sequence\n");
 hashTable.DisplaySequence();
@@ -49,10 +49,20 @@ console.log("printing tree");
 hashTable.Print();
 
 console.log("printing the value for 100");
-hashTable.getEntry(100, referenceObject);
+hashTable.get(100, referenceObject);
 console.log(referenceObject.returnValue);
 
 
 console.log("printing the value for 10");
-hashTable.getEntry(10, referenceObject);
+hashTable.get(10, referenceObject);
 console.log(referenceObject.returnValue);
+
+ let hashTable1: HashTable<string, number> = new HashTable<string, number>();
+
+ hashTable1.put("pinky1", 10);
+ hashTable1.put("pinky2", 20);
+ hashTable1.put("pinky3", 30);
+ hashTable1.put("pinky4", 40);
+
+ hashTable1.get("pinky2", referenceObject);
+ console.log(referenceObject.returnValue);
