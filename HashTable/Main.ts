@@ -66,3 +66,5 @@ console.log(referenceObject.returnValue);
 
  hashTable1.get("pinky2", referenceObject);
  console.log(referenceObject.returnValue);
+
+ hashTable.printInorder();
