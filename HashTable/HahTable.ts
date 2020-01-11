@@ -1,12 +1,40 @@
+/*---------------------------------------------------------------------------------------
+ * Project:  SuperStructure
+ * File:     SuperStructure.ts
+ * Author:   Santosh Jadhav
+ * 
+ * Description: 
+ *      Implementation of Generic SuperStructure in TypeScript
+ *      
+ *      This is implemented using combination of HashTable, Sentinel LinkedList, and Binary SearchTree
+ *      This implementation uses separate chaining using Single linkedList
+ * 
+ * ---------------------------------------------------------------------------------------------------------------
+ */
+
+
 import { Entry } from "./Entry";
 import hash = require("js-hash-code");
+
+/**
+ *  HashTable stores a table which key as offsets
+ *  It contains Entry Object which represents a (key, value) pair,
+ *  uses single LinkedList for hashTable collision,
+ *  It contains the Sentinel LinkedList to get the Sequence,
+ *  It contains Binary SearchTree to get the (default) sorting.   
+ */
 export class HashTable<K,V> {
+    
+    /**
+     * Contains the table, (head and tail) , root and level and also size
+     */
     private table;
     private head;
     private tail;
     private root:Entry<K, V>;
     public static level = 0;
     
+    // Initialises the table
     constructor(private size = 10) {
         this.table = new Array<Entry<K, V>>(size);
         this.head = new Entry<K,V>(null, null);
@@ -14,24 +42,44 @@ export class HashTable<K,V> {
         this.head.next = this.tail;
         this.tail.prev = this.head;
         this.root = null;
+
+        // Allocate the table
+        for (let index = 0; index < this.size; index++) {
+            this.table[index] = null;
+            
+        }
     }
     
-
+    /**
+     * Hash Function
+     * @param k 
+     */
     private Hash (k : K){
 
+        // using js-hash-code of npm to generate hash
         var hashcode = hash(k);
-        //console.log(hashcode);
         return (hashcode % this.size);
     }
 
     /**
      * Method put
      */
-    public put(k:K, val : V): void {
-       let offset : number = this.Hash(k);
-        //console.log(offset);
-       let newEntry:Entry<K, V> = new Entry<K, V>(k, val);
+    public put(k:K, val : V): boolean {
+       
+        // Get offset from hash Function
+        let offset : number = this.Hash(k);
+        
+        let newEntry:Entry<K, V> = new Entry<K, V>(k, val);        
 
+        // If collision is occured 
+        if (null != this.table[offset])
+            // Add the Entry in the Beginning 
+            newEntry.nextEntry = this.table[offset]
+
+        // No collision then add to table
+        this.table[offset] = newEntry;  // head points to new Entry
+       
+       
        // List Implementation by adding new Entry
        newEntry.next = this.tail;
        newEntry.prev = this.tail.prev;
@@ -41,22 +89,31 @@ export class HashTable<K,V> {
         // Tree implementation by adding new Entry
         this.root = this.AddNode(this.root, newEntry);
 
-       if (this.table[offset] != null)
-           newEntry.nextEntry = this.table[offset]
-           
-        this.table[offset] = newEntry;
+        return true;
     }
 
+    /**
+     * AddNode function used to provide the sorting 
+     * Implementation is done in tree
+     * it returns the Entry
+     * @param TreeNode 
+     * @param newEnt 
+     * @param parentNode 
+     */
     private AddNode(TreeNode: Entry<K, V>, newEnt: Entry<K, V>, parentNode?: Entry<K, V>) : Entry<K, V>
     {
-        
+        // If there is no Entry return newEntry   
         if (null == TreeNode) 
             return newEnt;
 
+
+        // If key of new Entry is smaller than TreeNode key than traverse left
         if (newEnt.key < TreeNode.key) { 
             TreeNode.left = this.AddNode(TreeNode.left, newEnt, TreeNode);
             
         }
+
+        // Else Traverse Right
         else {
             TreeNode.right = this.AddNode(TreeNode.right, newEnt, TreeNode);
             
@@ -66,24 +123,36 @@ export class HashTable<K,V> {
 
     /**
      *    get method
+     *    It contains 2 parameters,
+     *    key and Object Reference,
+     *    Since there is no call by reference in javaScript/typeScript,  
+     *    Using Object Reference to provide value for particular key,
+     *    It returns Boolean Value
      */
     public get(k : K, o: {returnValue}) : boolean {
         let offset = this.Hash(k);
 
+        // Checking if key exists in table
         for (let current : Entry<K, V> = this.table[offset]; current != null; current = current.nextEntry){
+            // If key matches with current key
             if (current.key == k){
-                o.returnValue = current.value;
+                o.returnValue = current.value; // property of Object reference is set 
                 return true;
             }
 
         }
-
+        /**
+         * If key not found Property of Object may contains previous value,
+         * Thus, Set to null
+         */
         o.returnValue=null;
         return false;
        }
 
     /**
-     * remove
+     * Remove Function with 1 parameter
+     * It returns Boolean value
+     * Remove the entry from HashTable. 
      */
     public remove(k : K) : boolean{
         let offset = this.Hash(k);
@@ -112,12 +181,23 @@ export class HashTable<K,V> {
         return false;
     }
 
+    /**
+     * DeleteNode function is used to remove Entry from Tree
+     * It returns the Entry
+     * @param current 
+     * @param k 
+     */
     private DeleteNode(current:Entry<K, V>, k:K) : Entry<K, V>
     {
+        // If Entry does not exist
         if (null == current)
             return current;
+        
+        // If key is smaller than current key traverse to left subtree
         if (current.key > k)
             current.left = this.DeleteNode(current.left, k);
+        
+        // Else traverse to right subtree 
         else if (current.key < k)
             current.right = this.DeleteNode(current.right, k);
         else
@@ -141,24 +221,27 @@ export class HashTable<K,V> {
             }
 
             // Current Entry contains both child
+            // Add current's left subtree to right subtree,
+            // Return current's right subtree 
             current.right = this.AddNode(current.right, current.left);
 
-            /* Current Entry is root 
-            if (current == this.root) 
-                return null;   
-            */
            return current.right;
         }
         return current;
         
     }
 
+    /**
+     * Method DisplaySequence is used to display the sequence,
+     */
     public DisplaySequence(): void
     {
-         let List : string = "";
+        // list is used to append the value,
+        let List : string = "";
         
         for (let current : Entry<K, V> = this.head.next; current != this.tail; current = current.next)
         {   
+            // Values are appended to list to give feel of list
             List += (current.value).toString();
             if (current.next != this.tail)
                 List += " -> ";
@@ -167,7 +250,7 @@ export class HashTable<K,V> {
     }
 
     /**
-     *   printing tree  */
+     *   printing all Entries in tree  */
     public Print() {
         this.PrintPed(this.root);
     }
@@ -186,6 +269,22 @@ export class HashTable<K,V> {
             
             this.PrintPed(current.left); 
             HashTable.level -= 1;
+        }
+    }
+
+    // Printing the Inorder 
+    public printInorder()
+    {
+        this.inorder(this.root);
+    }
+
+    private inorder(current : Entry<K, V>) : void
+    {
+        if (null != current)
+        {
+            this.inorder(current.left);
+            console.log(current.value);
+            this.inorder(current.right);
         }
     }
 
