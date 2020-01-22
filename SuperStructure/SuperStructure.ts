@@ -8,7 +8,10 @@
  *      
  *      This is implemented using combination of HashTable, Sentinel LinkedList, and Binary SearchTree
  *      This implementation uses separate chaining using Single linkedList
- * 
+ *      
+ * Note: 
+ *      Before running this file you must install js-hash-code on your local (npm install js-hash-code)
+ *      
  * ---------------------------------------------------------------------------------------------------------------
  */
 
@@ -23,7 +26,7 @@ import hash = require("js-hash-code");
  *  It contains the Sentinel LinkedList to get the Sequence,
  *  It contains Binary SearchTree to get the (default) sorting.   
  */
-export class HashTable<K,V> {
+export class SuperStructure<K,V> {
     
     /**
      * Contains the table, (head and tail) , root and level and also size
@@ -126,8 +129,8 @@ export class HashTable<K,V> {
      *    It contains 2 parameters,
      *    key and Object Reference,
      *    Since there is no call by reference in javaScript/typeScript,  
-     *    Using Object Reference to provide value for particular key,
-     *    It returns Boolean Value
+     *    Using Object Reference to store the value for particular key,
+     *    It returns Boolean
      */
     public get(k : K, o: {returnValue}) : boolean {
         let offset = this.Hash(k);
@@ -233,7 +236,7 @@ export class HashTable<K,V> {
             let tempNode: Entry<K, V> = successor;
             current.right = this.DeleteNode(current.right, tempNode.key);
             
-            // link current's left and right child to successor
+            // link current's left and right child to successor and return
             successor.left = current.left;
             successor.right = current.right;
 
@@ -272,15 +275,15 @@ export class HashTable<K,V> {
         if (current)
         {
             let noOfSpace : string = "";
-            HashTable.level += 1;
+            SuperStructure.level += 1;
             this.PrintPed(current.right);
-            for (let index = 0; index < HashTable.level; index++)
+            for (let index = 0; index < SuperStructure.level; index++)
                  noOfSpace += "  ";
             //console.log(noOfSpace);
             console.log(`${noOfSpace}${current.value}\n`);
             
             this.PrintPed(current.left); 
-            HashTable.level -= 1;
+            SuperStructure.level -= 1;
         }
     }
 
