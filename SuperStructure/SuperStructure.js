@@ -99,8 +99,8 @@ var SuperStructure = /** @class */ (function () {
      *    It contains 2 parameters,
      *    key and Object Reference,
      *    Since there is no call by reference in javaScript/typeScript,
-     *    Using Object Reference to provide value for particular key,
-     *    It returns Boolean Value
+     *    Using Object Reference to store the value for particular key,
+     *    It returns Boolean
      */
     SuperStructure.prototype.get = function (k, o) {
         var offset = this.Hash(k);
@@ -176,10 +176,19 @@ var SuperStructure = /** @class */ (function () {
                 return child;
             }
             // Current Entry contains both child
-            // Add current's left subtree to right subtree,
-            // Return current's right subtree 
-            current.right = this.AddNode(current.right, current.left);
-            return current.right;
+            // Finding the successor to replace the current Entry
+            var successor = current.right;
+            while (null != successor.left)
+                successor = successor.left;
+            // Storing the successor in tempEntry
+            // Since the successor may contain right child
+            // Before replacing current with successor it is required to store it's right child   
+            var tempNode = successor;
+            current.right = this.DeleteNode(current.right, tempNode.key);
+            // link current's left and right child to successor and return
+            successor.left = current.left;
+            successor.right = current.right;
+            return successor;
         }
         return current;
     };

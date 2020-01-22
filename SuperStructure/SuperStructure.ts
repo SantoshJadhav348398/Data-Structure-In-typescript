@@ -129,8 +129,8 @@ export class SuperStructure<K,V> {
      *    It contains 2 parameters,
      *    key and Object Reference,
      *    Since there is no call by reference in javaScript/typeScript,  
-     *    Using Object Reference to provide value for particular key,
-     *    It returns Boolean Value
+     *    Using Object Reference to store the value for particular key,
+     *    It returns Boolean
      */
     public get(k : K, o: {returnValue}) : boolean {
         let offset = this.Hash(k);
@@ -224,11 +224,23 @@ export class SuperStructure<K,V> {
             }
 
             // Current Entry contains both child
-            // Add current's left subtree to right subtree,
-            // Return current's right subtree 
-            current.right = this.AddNode(current.right, current.left);
+            
+            // Finding the successor to replace the current Entry
+            let successor:Entry<K, V> = current.right;
+            while (null != successor.left)
+                successor = successor.left;
+            
+            // Storing the successor in tempEntry
+            // Since the successor may contain right child
+            // Before replacing current with successor it is required to store it's right child   
+            let tempNode: Entry<K, V> = successor;
+            current.right = this.DeleteNode(current.right, tempNode.key);
+            
+            // link current's left and right child to successor and return
+            successor.left = current.left;
+            successor.right = current.right;
 
-           return current.right;
+            return successor;
         }
         return current;
         
