@@ -5,6 +5,7 @@
  * NextEntry: points to the next Entry for in case of collision.
  * Next and prev used to point the next and previous Entry to get the Sequence in HashTable.
  * Left and Right used to point left and right subTree in order to get default sorting.
+ * balance : balanace factor of each
  */
 exports.__esModule = true;
 var Entry = /** @class */ (function () {
@@ -16,6 +17,7 @@ var Entry = /** @class */ (function () {
         this.prev = null;
         this.left = null;
         this.right = null;
+        this.balance = 0;
     }
     return Entry;
 }());

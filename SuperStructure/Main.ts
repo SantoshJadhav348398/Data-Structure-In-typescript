@@ -52,3 +52,17 @@ console.log("printing in inorder after removing C")
 
 hashTable.get(28, referenceObject);
 console.log(`get value for key 28 : ${referenceObject.returnValue}`);
+
+let sup: SuperStructure<number, string> = new SuperStructure<number, string>();
+
+sup.put(30, "C++");
+sup.put(40, "Java");
+sup.put(35, "C#");
+sup.put(20,"python");
+sup.put(25, "pascal");
+sup.put(37, "js");
+sup.put(42, "ts");
+
+//sup.remove(25);
+//sup.remove(42);
+sup.Print();

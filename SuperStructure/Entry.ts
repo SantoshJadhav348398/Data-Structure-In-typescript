@@ -14,6 +14,7 @@ export class Entry<K, V>{
     prev: Entry<K, V>;
     left: Entry<K, V>;
     right: Entry<K, V>;
+    balance:number;
      
 
     constructor(k:K, val: V){
@@ -23,6 +24,7 @@ export class Entry<K, V>{
         this.next = null;
         this.prev = null;
         this.left = null;
-        this.right= null;
+        this.right = null;
+        this.balance = 0
     }
 }
