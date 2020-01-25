@@ -16,6 +16,7 @@ var Entry = /** @class */ (function () {
         this.prev = null;
         this.left = null;
         this.right = null;
+        this.balance = 0;
     }
     return Entry;
 }());
